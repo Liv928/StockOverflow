@@ -19,8 +19,6 @@ export class AppComponent {
      * 
      */
     ngOnInit(){
-        this.apiService.getStocks().subscribe((res)=>{
-            console.log(res);
-          });      
+         
     }
 }
