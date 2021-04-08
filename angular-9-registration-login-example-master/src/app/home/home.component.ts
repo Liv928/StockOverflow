@@ -10,6 +10,9 @@ import HighchartsMore from 'highcharts/highcharts-more';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { StockApiService } from '@app/stock-api.service';
+//import { write } from 'fs';
+
+
 
 StockModule(Highcharts);
 
@@ -55,78 +58,157 @@ export class HomeComponent {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = ELEMENT_DATA;
     public Highcharts = Highcharts;
+<<<<<<< HEAD
+    public oneMonthData =[];  //initializ an array for stock data
+    public fetchedData = [];
+    public graphData_x = [];  //oneMonthPrice: number[] = [];
+=======
     //initializ an array for stock data
-    public oneMonthData=[]; 
-    //oneMonthPrice: number[] = [];
-    graphData = []; 
+    oneMonthDate: string[] =[]; 
+    oneMonthPrice: number[] = [];
+    symbol: string[] = [];
+    tap = false;
+    stockInfo: {symbol: string,name: string,high:string,low:string,volume:string}[] = 
+    [{symbol: 'AAPL',name: 'Apple',high: '117.49',low:'116.22',volume:'46691331'},
+    {symbol: 'A',name: 'Agilent Technologies Inc.',high: '117.49',low:'116.22',volume:'46691331'},
+    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: '117.49',low:'116.22',volume:'46691331'},];
+>>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
 
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
         {text: 'Two', cols: 1, rows: 5, color: 'lightpink'},
-        
       ];
 
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
+<<<<<<< HEAD
+   
     getonemonthData(){
       this.apiService.getonemonthDate().subscribe((res)=>{
-        let i = 0;
+        for (const item in res){
+          let temp = []
+          //var tempDate = new Date(res[item].date);
+          //var tms = Date.UTC(tempDate.getUTCFullYear(),tempDate.getMonth(),tempDate.getDate(),tempDate.getHours(),tempDate.getMinutes());
+          temp.push(res[item].date);
+          temp.push(res[item].close);
+          
+          this.fetchedData.push(temp);
+          console.log("in the loop-----",this.fetchedData);
+        }
+         /*
         for (const item in res){
           // store the pair array [datetime, price]
-          this.graphData[i] = [];
-       
-          this.graphData[i].push(res[item].date);
-          this.graphData[i].push(res[item].close);  
-          //console.log(this.graphData); 
-          i++;
+          let temp = []
+          //var tempDate = new Date(res[item].date);
+          //var tms = Date.UTC(tempDate.getUTCFullYear(),tempDate.getMonth(),tempDate.getDate(),tempDate.getHours(),tempDate.getMinutes());
+          temp.push(res[item].date)
+          temp.push(res[item].close)
+          
+          this.fetchedData.push(res[item]);
+          console.log(this.fetchedData); 
+          
+          //截止目前正确 oneMonthData 存储的是[date, price]
+          //push the pair into 2-d array
+          //this.graphData.push(this.oneMonthData);
+          */
+=======
+    getonemonthDate(){
+      this.apiService.getonemonthDate().subscribe((res)=>{
+        for (const item in res){
+          this.oneMonthDate.push(res[item].date);
+>>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
+          
+        
+      });
+      
+<<<<<<< HEAD
+=======
+    }
+    getoneMonthPrice(){
+      this.apiService.getonemonthDate().subscribe((res)=>{
+        for (const item in res){
+          this.oneMonthPrice.push(res[item].close);
+        }
+      }); 
+>>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
+    }
+    
+    getSymbol(){
+      this.apiService.getSymbol().subscribe((res)=>{
+        for (let index = 0; index < 10; index++){
+          this.symbol.push(res[index].symbol);
           
         }
-      });   
+      }); 
+      
     }
+    getStock(){
 
+    }
+    clickEvent(){
+      let old = this.tap;
+      this.tap = !old;
+    }
+    
     ngOnInit(){
-        //getData -> return value put into html
+<<<<<<< HEAD
+        /*
+        this.apiService.getonemonthDate().subscribe((res)=>{
+          console.log(res)
+          for (const item in res){
+            let temp = []
+            //var tempDate = new Date(res[item].date);
+            //var tms = Date.UTC(tempDate.getUTCFullYear(),tempDate.getMonth(),tempDate.getDate(),tempDate.getHours(),tempDate.getMinutes());
+            temp.push(res[item].date);
+            temp.push(res[item].close);
+            
+            this.fetchedData.push(temp);
+            console.log("in the loop-----"+this.fetchedData);
+          }
+        });*/
         this.getonemonthData();
+        console.log("out the loop------"+this.fetchedData); 
+        
+        //getData -> return value put into html
+        //this.getonemonthData();
         //this.getoneMonthPrice();
         
-        console.log(this.graphData); 
+        //console.log(this.oneMonthPrice); 
+=======
+        //getData -> return value put into html
+        this.getonemonthDate();
+        this.getoneMonthPrice();
+        this.getSymbol();
+        console.log(this.oneMonthDate); 
+        console.log(this.oneMonthPrice); 
+        console.log(this.symbol); 
+>>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
         this.chartOptions = {
-          legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'middle',
-            itemHoverStyle: {
-              color: 'red',
-            }
+          chart:{
           },
-          rangeSelector: {
-            selected: 2
+          plotOptions: {
           },
           title: {text: 'Stock Data'},
           series: [{
-            showInLegend: true,
-            type: 'line',
             name: '',
             tooltip: {
-              valueDecimals: 2
+              valueDecimals: 2,
             },
-            data:[this.graphData]
+            data:this.oneMonthData
           }],
           yAxis: {
-            opposite: false,
-            title: {}
+            title: {text:'Celsius'}
           },
           xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: {
-                hour: '%H:%M'
+              week: '%Y-%m-%d'
             },
-            minRange: 1000,
-            minTickInterval: 1000 
+           
           }
         }
-      };
     
-
+    
+      }
 }
