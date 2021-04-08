@@ -31,6 +31,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
@@ -50,7 +51,8 @@ import { NewsComponent } from './news/news.component';
         MatButtonModule ,
         MatDatepickerModule,
         MatGridListModule,
-        MatTableModule
+        MatTableModule,
+        MatTabsModule
 
     ],
     declarations: [		

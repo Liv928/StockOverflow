@@ -6,8 +6,9 @@ import { AccountService } from '@app/_services';
 import * as Highcharts from 'highcharts';
 import StockModule from 'highcharts/modules/stock';
 import { HighchartsChartModule } from 'highcharts-angular';
-
 import HighchartsMore from 'highcharts/highcharts-more';
+
+import {MatTabsModule} from '@angular/material/tabs';
 
 StockModule(Highcharts);
 
@@ -55,10 +56,9 @@ export class HomeComponent {
     public Highcharts = Highcharts;
     
     tiles: Tile[] = [
-        {text: 'One', cols: 3, rows: 3, color: 'lightblue'},
-        {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-        {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-        {text: 'Four', cols: 4, rows: 1, color: '#DDBDF1'},
+        {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
+        {text: 'Two', cols: 1, rows: 5, color: 'lightpink'},
+        
       ];
 
     constructor(private accountService: AccountService) {
