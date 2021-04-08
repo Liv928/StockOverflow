@@ -10,6 +10,9 @@ import HighchartsMore from 'highcharts/highcharts-more';
 
 import {MatTabsModule} from '@angular/material/tabs';
 import { StockApiService } from '@app/stock-api.service';
+//import { write } from 'fs';
+
+
 
 StockModule(Highcharts);
 
@@ -58,6 +61,12 @@ export class HomeComponent {
     //initializ an array for stock data
     oneMonthDate: string[] =[]; 
     oneMonthPrice: number[] = [];
+    symbol: string[] = [];
+    tap = false;
+    stockInfo: {symbol: string,name: string,high:string,low:string,volume:string}[] = 
+    [{symbol: 'AAPL',name: 'Apple',high: '117.49',low:'116.22',volume:'46691331'},
+    {symbol: 'A',name: 'Agilent Technologies Inc.',high: '117.49',low:'116.22',volume:'46691331'},
+    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: '117.49',low:'116.22',volume:'46691331'},];
 
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
@@ -84,13 +93,32 @@ export class HomeComponent {
         }
       }); 
     }
+    
+    getSymbol(){
+      this.apiService.getSymbol().subscribe((res)=>{
+        for (let index = 0; index < 10; index++){
+          this.symbol.push(res[index].symbol);
+          
+        }
+      }); 
+      
+    }
+    getStock(){
 
+    }
+    clickEvent(){
+      let old = this.tap;
+      this.tap = !old;
+    }
+    
     ngOnInit(){
         //getData -> return value put into html
         this.getonemonthDate();
         this.getoneMonthPrice();
-        //console.log(this.oneMonthDate); 
-        //console.log(this.oneMonthPrice); 
+        this.getSymbol();
+        console.log(this.oneMonthDate); 
+        console.log(this.oneMonthPrice); 
+        console.log(this.symbol); 
         this.chartOptions = {
           legend: {
             layout: 'vertical',
