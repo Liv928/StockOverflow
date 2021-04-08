@@ -58,21 +58,9 @@ export class HomeComponent {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = ELEMENT_DATA;
     public Highcharts = Highcharts;
-<<<<<<< HEAD
     public oneMonthData =[];  //initializ an array for stock data
     public fetchedData = [];
     public graphData_x = [];  //oneMonthPrice: number[] = [];
-=======
-    //initializ an array for stock data
-    oneMonthDate: string[] =[]; 
-    oneMonthPrice: number[] = [];
-    symbol: string[] = [];
-    tap = false;
-    stockInfo: {symbol: string,name: string,high:string,low:string,volume:string}[] = 
-    [{symbol: 'AAPL',name: 'Apple',high: '117.49',low:'116.22',volume:'46691331'},
-    {symbol: 'A',name: 'Agilent Technologies Inc.',high: '117.49',low:'116.22',volume:'46691331'},
-    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: '117.49',low:'116.22',volume:'46691331'},];
->>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
 
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
@@ -82,7 +70,6 @@ export class HomeComponent {
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
-<<<<<<< HEAD
    
     getonemonthData(){
       this.apiService.getonemonthDate().subscribe((res)=>{
@@ -112,28 +99,12 @@ export class HomeComponent {
           //push the pair into 2-d array
           //this.graphData.push(this.oneMonthData);
           */
-=======
-    getonemonthDate(){
-      this.apiService.getonemonthDate().subscribe((res)=>{
-        for (const item in res){
-          this.oneMonthDate.push(res[item].date);
->>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
           
         
       });
       
-<<<<<<< HEAD
-=======
     }
-    getoneMonthPrice(){
-      this.apiService.getonemonthDate().subscribe((res)=>{
-        for (const item in res){
-          this.oneMonthPrice.push(res[item].close);
-        }
-      }); 
->>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
-    }
-    
+    /*
     getSymbol(){
       this.apiService.getSymbol().subscribe((res)=>{
         for (let index = 0; index < 10; index++){
@@ -141,18 +112,17 @@ export class HomeComponent {
           
         }
       }); 
-      
-    }
+    }*/
     getStock(){
 
     }
+    /*
     clickEvent(){
       let old = this.tap;
       this.tap = !old;
     }
-    
+    */
     ngOnInit(){
-<<<<<<< HEAD
         /*
         this.apiService.getonemonthDate().subscribe((res)=>{
           console.log(res)
@@ -175,15 +145,6 @@ export class HomeComponent {
         //this.getoneMonthPrice();
         
         //console.log(this.oneMonthPrice); 
-=======
-        //getData -> return value put into html
-        this.getonemonthDate();
-        this.getoneMonthPrice();
-        this.getSymbol();
-        console.log(this.oneMonthDate); 
-        console.log(this.oneMonthPrice); 
-        console.log(this.symbol); 
->>>>>>> 9aa332a8bd4e0dfee310c5ea611c57d281e8c814
         this.chartOptions = {
           chart:{
           },
