@@ -55,10 +55,9 @@ export class HomeComponent {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = ELEMENT_DATA;
     public Highcharts = Highcharts;
-    //initializ an array for stock data
-    public oneMonthData=[]; 
-    //oneMonthPrice: number[] = [];
-    graphData = []; 
+    public oneMonthData =[];  //initializ an array for stock data
+    public fetchedData = [];
+    public graphData = [];  //oneMonthPrice: number[] = [];
 
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
@@ -69,6 +68,7 @@ export class HomeComponent {
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
+   
     getonemonthData(){
       this.apiService.getonemonthDate().subscribe((res)=>{
         let i = 0;
