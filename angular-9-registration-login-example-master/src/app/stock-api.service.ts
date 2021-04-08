@@ -7,6 +7,8 @@ import { StockData } from './models/stock-data';
 export class StockApiService {
   //private baseUrl = 'https://cloud.iexapis.com/stable/stock/';  // URL to web api
   private onemonthUrl = 'https://cloud.iexapis.com/stable/stock/twtr/chart/1m?token=pk_9b3e50aa00274c0a8143cbf1cd6f0048';
+  private newsUrl = 'https://cloud.iexapis.com/stable/stock/aapl/news?token=pk_9b3e50aa00274c0a8143cbf1cd6f0048';
+  displayedNews: string[] = [];
   oneMonthDate: string[] = [];
   oneMonthPrice: number[] = [];
 
@@ -21,6 +23,10 @@ export class StockApiService {
   getonemonthDate(){
    return this.http.get(this.onemonthUrl); //obeject array
 
+  }
+
+  getNews(){
+    return this.http.get(this.newsUrl);
   }
  
   
