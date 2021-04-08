@@ -39,6 +39,7 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { NewsComponent } from './news/news.component';
+import { CurrencyComponent } from './currency/currency.component';
 
 
 @NgModule({
@@ -55,12 +56,12 @@ import { NewsComponent } from './news/news.component';
         MatTabsModule
 
     ],
-    declarations: [		
+    declarations: [			
         AppComponent,
         AlertComponent,
         HomeComponent,
         NewsComponent,
-      
+        CurrencyComponent
    ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
