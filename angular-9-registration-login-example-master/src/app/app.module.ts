@@ -9,6 +9,7 @@ import { fakeBackendProvider } from './_helpers';
 
 
 
+
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,12 +30,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatDialogModule} from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
+import { NewsComponent } from './news/news.component';
+
 
 @NgModule({
     imports: [
@@ -45,14 +49,17 @@ import { HomeComponent } from './home';
         HighchartsChartModule,
         MatButtonModule ,
         MatDatepickerModule,
-        MatGridListModule
+        MatGridListModule,
+        MatTableModule
 
     ],
-    declarations: [
+    declarations: [		
         AppComponent,
         AlertComponent,
-        HomeComponent
-    ],
+        HomeComponent,
+        NewsComponent,
+      
+   ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
