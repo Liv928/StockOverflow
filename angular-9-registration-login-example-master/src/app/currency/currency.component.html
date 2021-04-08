@@ -1,3 +1,72 @@
-<p>
-  currency works!
-</p>
+<div class="p-4">
+  <div class="container">
+      
+      <p>You're logged in with Angular 9!!</p>
+      <p><a routerLink="/users">Manage Users</a></p>
+
+      <mat-grid-list cols="4" rowHeight="100px">
+          <mat-grid-tile class="chart-box"     
+              [colspan]="tiles[0].cols"
+              [rowspan]="tiles[0].rows"
+              [style.background]="tiles[0].color">
+              
+              <highcharts-chart
+                      [Highcharts]="Highcharts"
+                      [constructorType]="'stockChart'"
+                      [options]="chartOptions"
+                      [oneToOne]=true
+                      style="width: 100%; height:100%; display:block;"
+              ></highcharts-chart>
+              
+               
+          </mat-grid-tile>
+
+          <mat-grid-tile      
+              [colspan]="tiles[1].cols"
+              [rowspan]="tiles[1].rows"
+              [style.background]="tiles[1].color">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef> Price </th>
+                  <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="symbol">
+                  <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                  <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+               
+              </table>
+          </mat-grid-tile>
+        </mat-grid-list>
+        
+
+  </div>
+</div>
+
+
+   
+
+

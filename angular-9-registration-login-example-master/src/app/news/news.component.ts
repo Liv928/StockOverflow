@@ -15,7 +15,7 @@ export class NewsComponent {
       this.user = this.accountService.userValue;
   }
 
-  getNews(){
+  getNew(){
     this.apiService.getNews().subscribe((res) =>{
       for (const item in res){
         //console.log(res[item]);
@@ -26,7 +26,7 @@ export class NewsComponent {
   }
 
   ngOnInit(){
-      this.getNews();
+      this.getNew();
       //console.log(this.displayedNews);
            
   };
