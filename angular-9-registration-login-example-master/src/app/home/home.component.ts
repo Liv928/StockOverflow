@@ -56,8 +56,9 @@ export class HomeComponent {
     dataSource = ELEMENT_DATA;
     public Highcharts = Highcharts;
     //initializ an array for stock data
-    oneMonthDate: string[] =[]; 
-    oneMonthPrice: number[] = [];
+    oneMonthData: (string|number)[] =[]; 
+    //oneMonthPrice: number[] = [];
+    graphData :any[][] = []; 
 
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
@@ -68,28 +69,29 @@ export class HomeComponent {
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
-    getonemonthDate(){
+    getonemonthData(){
       this.apiService.getonemonthDate().subscribe((res)=>{
         for (const item in res){
-          this.oneMonthDate.push(res[item].date);
+          // store the pair array [datetime, price]
+          this.oneMonthData.push(res[item].date);
+          this.oneMonthData.push(res[item].close);
+          //console.log(this.oneMonthDate); 
+          //截止目前正确 oneMonthData 存储的是[date, price]
+          //push the pair into 2-d array
+          this.graphData.push(this.oneMonthData);
           
         }
       });
       
+      
     }
-    getoneMonthPrice(){
-      this.apiService.getonemonthDate().subscribe((res)=>{
-        for (const item in res){
-          this.oneMonthPrice.push(res[item].close);
-        }
-      }); 
-    }
+    
 
     ngOnInit(){
         //getData -> return value put into html
-        this.getonemonthDate();
-        this.getoneMonthPrice();
-        //console.log(this.oneMonthDate); 
+        this.getonemonthData();
+        //this.getoneMonthPrice();
+        console.log(this.graphData); 
         //console.log(this.oneMonthPrice); 
         this.chartOptions = {
           legend: {
