@@ -38,21 +38,49 @@ export class HomeComponent {
     public Highcharts = Highcharts;
 
     
+    //initializ an array for stock data
+    oneMonthData: (string|number)[] =[]; 
+    //oneMonthPrice: number[] = [];
+    graphData :any[][] = []; 
+
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
         {text: 'Two', cols: 1, rows: 5, color: 'lightpink'},
         
       ];
     
+
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
+    getonemonthData(){
+      this.apiService.getonemonthDate().subscribe((res)=>{
+        for (const item in res){
+          // store the pair array [datetime, price]
+          this.oneMonthData.push(res[item].date);
+          this.oneMonthData.push(res[item].close);
+          //console.log(this.oneMonthDate); 
+          //截止目前正确 oneMonthData 存储的是[date, price]
+          //push the pair into 2-d array
+          this.graphData.push(this.oneMonthData);
+          
+        }
+      });
+      
+      
+    }
+    
 
     ngOnInit(){
-        this.apiService.getStocks().subscribe((res)=>{
+        this.apiService.getonemonthDate().subscribe((res)=>{
           console.log(res);
         })
         
+        //getData -> return value put into html
+        this.getonemonthData();
+        //this.getoneMonthPrice();
+        console.log(this.graphData); 
+        //console.log(this.oneMonthPrice); 
         this.chartOptions = {
           legend: {
             layout: 'vertical',
