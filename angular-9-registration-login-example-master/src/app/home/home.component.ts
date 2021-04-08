@@ -9,6 +9,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import HighchartsMore from 'highcharts/highcharts-more';
 
 import {MatTabsModule} from '@angular/material/tabs';
+import { StockApiService } from '@app/stock-api.service';
 
 StockModule(Highcharts);
 
@@ -54,19 +55,42 @@ export class HomeComponent {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = ELEMENT_DATA;
     public Highcharts = Highcharts;
-    
+    //initializ an array for stock data
+    oneMonthDate: string[] =[]; 
+    oneMonthPrice: number[] = [];
+
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
         {text: 'Two', cols: 1, rows: 5, color: 'lightpink'},
         
       ];
 
-    constructor(private accountService: AccountService) {
+    constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
+    }
+    getonemonthDate(){
+      this.apiService.getonemonthDate().subscribe((res)=>{
+        for (const item in res){
+          this.oneMonthDate.push(res[item].date);
+          
+        }
+      });
+      
+    }
+    getoneMonthPrice(){
+      this.apiService.getonemonthDate().subscribe((res)=>{
+        for (const item in res){
+          this.oneMonthPrice.push(res[item].close);
+        }
+      }); 
     }
 
     ngOnInit(){
-        
+        //getData -> return value put into html
+        this.getonemonthDate();
+        this.getoneMonthPrice();
+        //console.log(this.oneMonthDate); 
+        //console.log(this.oneMonthPrice); 
         this.chartOptions = {
           legend: {
             layout: 'vertical',
