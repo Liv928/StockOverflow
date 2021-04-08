@@ -23,10 +23,34 @@
                 [colspan]="tiles[1].cols"
                 [rowspan]="tiles[1].rows"
                 [style.background]="tiles[1].color">
+                
               <h2>Watch List</h2>
             </mat-grid-tile>
           </mat-grid-list>
-          
+          <table>
+            <tr>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Volume</th>
+            </tr>
+            <tr *ngFor="let item of stockInfo">
+              
+                <td>{{item.symbol}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.high}}</td>
+                <td>{{item.low}}</td>
+                <td>{{item.volume}}</td>                
+              
+              
 
+              
+            </tr>
+          </table>
+          
+            
+            
+          
     </div>
 </div>
