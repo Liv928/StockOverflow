@@ -24,7 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -53,7 +53,9 @@ import { CurrencyComponent } from './currency/currency.component';
         MatDatepickerModule,
         MatGridListModule,
         MatTableModule,
-        MatTabsModule
+        MatTabsModule,
+        MatFormFieldModule,
+        MatInputModule,        
 
     ],
     declarations: [			

@@ -1,5 +1,5 @@
 ﻿import { Component , OnInit } from '@angular/core';
-
+import {MatTableDataSource} from '@angular/material/table';
 import { User } from '@app/_models';
 import { AccountService } from '@app/_services';
 
@@ -11,6 +11,8 @@ import HighchartsMore from 'highcharts/highcharts-more';
 import {MatTabsModule} from '@angular/material/tabs';
 import { StockApiService } from '@app/stock-api.service';
 //import { write } from 'fs';
+
+import data from '../../assets/data.json';
 
 
 
@@ -24,6 +26,7 @@ Highcharts.setOptions({
   }
 });
 
+//const chartdata = data;
 
 export interface Tile {
     color: string;
@@ -32,50 +35,50 @@ export interface Tile {
     text: string;
   }
 
-  export interface PeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
+export interface PeriodicElement {
     symbol: string;
+    name: string;
+    high: number;
+    low: number;
+    volume: string;
   }
-  const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-    {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-    {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-    {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-    {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-    {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-    {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-    {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-    {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  const ELEMENT_DATA: PeriodicElement[] =[
+    {symbol: 'AAPL',name: 'Apple',high: 117.49,low:116.22,volume:'46691331'},
+    {symbol: 'A',name: 'Agilent Technologies Inc.',high: 117.49,low:116.22,volume:'46691331'},
+    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: 117.49,low:116.22,volume:'46691331'}
   ];
 
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent {
+@Component({
+  templateUrl: 'home.component.html',  
+  selector: 'home.component',
+  styleUrls: ['home.component.css'],
+})
+
+export class HomeComponent{
     user: User;
     public chartOptions;
-    displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    dataSource = ELEMENT_DATA;
+    displayedColumns: string[] = ['symbol', 'name', 'high','low','volume'];
+    dataSource = new MatTableDataSource(ELEMENT_DATA);
     public Highcharts = Highcharts;
     public oneMonthData =[];  //initializ an array for stock data
     public fetchedData = [];
     public graphData = [];  //oneMonthPrice: number[] = [];
+
+    public jsonData =data;
+    public chartData = [];
     //initializ an array for stock data
     oneMonthDate: string[] =[]; 
     oneMonthPrice: number[] = [];
     symbol: string[] = [];
-    tap = false;
-    stockInfo: {symbol: string,name: string,high:string,low:string,volume:string}[] = 
-    [{symbol: 'AAPL',name: 'Apple',high: '117.49',low:'116.22',volume:'46691331'},
-    {symbol: 'A',name: 'Agilent Technologies Inc.',high: '117.49',low:'116.22',volume:'46691331'},
-    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: '117.49',low:'116.22',volume:'46691331'},];
-
     tiles: Tile[] = [
         {text: 'One', cols: 3, rows: 5, color: 'lightblue'},
         {text: 'Two', cols: 1, rows: 5, color: 'lightpink'},
       ];
 
+    applyFilter(event: Event){
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.user = this.accountService.userValue;
     }
@@ -108,13 +111,6 @@ export class HomeComponent {
       }); 
       
     }
-    getStock(){
-
-    }
-    clickEvent(){
-      let old = this.tap;
-      this.tap = !old;
-    }
     
     ngOnInit(){
         //getData -> return value put into html
@@ -124,31 +120,111 @@ export class HomeComponent {
         console.log(this.oneMonthDate); 
         console.log(this.oneMonthPrice); 
         console.log(this.symbol); 
-        this.chartOptions = {
-          chart:{
-          },
-          plotOptions: {
-          },
-          title: {text: 'Stock Data'},
-          series: [{
-            name: '',
-            tooltip: {
-              valueDecimals: 2,
-            },
-            data:this.oneMonthData
-          }],
-          yAxis: {
-            title: {text:'Celsius'}
-          },
-          xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: {
-              week: '%Y-%m-%d'
-            },
-           
-          }
+
+        this.chartData = this.jsonData.data;
+        console.log(this.chartData);
+        var ohlc = [],
+            volume = [],
+            dataLength = this.chartData.length,
+				// set the allowed units for data grouping
+            groupingUnits = [[
+                'week',                         // unit name
+                [1]                             // allowed multiples
+            ], [
+                'month',
+                [1, 2, 3, 4, 6]
+            ]],
+            i = 0;
+        for (i; i < dataLength; i += 1) {
+            ohlc.push([
+                this.chartData[i][0], // the date
+                this.chartData[i][1], // open
+                this.chartData[i][2], // high
+                this.chartData[i][3], // low
+                this.chartData[i][4] // close
+            ]);
+            volume.push([
+                this.chartData[i][0], // the date
+                this.chartData[i][5] // the volume
+            ]);
         }
-    
-    
+
+        
+        this.chartOptions = {
+          rangeSelector: {
+						selected: 1,
+						inputDateFormat: '%Y-%m-%d'
+				},
+				title: {
+						text: 'Stock Data'
+				},
+				xAxis: {
+						dateTimeLabelFormats: {
+								millisecond: '%H:%M:%S.%L',
+								second: '%H:%M:%S',
+								minute: '%H:%M',
+								hour: '%H:%M',
+								day: '%m-%d',
+								week: '%m-%d',
+								month: '%y-%m',
+								year: '%Y'
+						}
+				},
+				tooltip: {
+						split: false,
+						shared: true,
+				},
+				yAxis: [{
+						labels: {
+								align: 'right',
+								x: -3
+						},
+						title: {
+								text: 'price'
+						},
+						height: '65%',
+						resize: {
+								enabled: true
+						},
+						lineWidth: 2
+				}, {
+						labels: {
+								align: 'right',
+								x: -3
+						},
+						title: {
+								text: 'turnover'
+						},
+						top: '65%',
+						height: '35%',
+						offset: 0,
+						lineWidth: 2
+				}],
+				series: [{
+						type: 'candlestick',
+						name: 'AAPL',
+						color: 'green',
+						lineColor: 'green',
+						upColor: 'red',
+						upLineColor: 'red',
+						tooltip: {
+						},
+						navigatorOptions: {
+								color: Highcharts.getOptions().colors[0]
+						},
+						data: ohlc,
+						dataGrouping: {
+								units: groupingUnits
+						},
+						id: 'sz'
+				},{
+						type: 'column',
+						data: volume,
+						yAxis: 1,
+						dataGrouping: {
+								units: groupingUnits
+						}
+				}]
+        }
       }
 }
