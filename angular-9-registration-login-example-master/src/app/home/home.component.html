@@ -1,58 +1,165 @@
 ﻿<div class="p-4">
 <div class="container">
-<h1>Hi {{user.firstName}}!</h1>
-<p>You're logged in StockOverflow!!</p>
-<p>Filter: (Ex. AAPL)</p>
-<mat-form-field>
-<input matInput (keyup)="applyFilter($event)" placeholder="_______________________________________________" #input>
-</mat-form-field>
+  <h1>Hi {{user.firstName}}!</h1>
+  <p>You're logged in StockOverflow!!</p>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <section class="example-section">
+    <input class="options" type="checkbox" [(ngModel)]="stocktable_check">Stock Data Service 
+    <input class="options" type="checkbox" [(ngModel)]="stockchart_check">Stock Chart Service 
+    <input class="options" type="checkbox" [(ngModel)]="currency_check">Currency Service 
+    <input class="options" type="checkbox" [(ngModel)]="news_check">Market News Service
+  </section> 
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
+  <div *ngIf="stocktable_check">
+    <p>{{stocktable_check}}</p>
+    <p>Filter: (Ex. AAPL)</p>
+    <mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="_______________________________________________" #input>
+    </mat-form-field>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="high">
-    <th mat-header-cell *matHeaderCellDef> High </th>
-    <td mat-cell *matCellDef="let element"> {{element.high}} </td>
-  </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="low">
-    <th mat-header-cell *matHeaderCellDef> Low </th>
-    <td mat-cell *matCellDef="let element"> {{element.low}} </td>
-  </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
 
-  <ng-container matColumnDef="volume">
-    <th mat-header-cell *matHeaderCellDef> Volume </th>
-    <td mat-cell *matCellDef="let element"> {{element.volume}} </td>
-  </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="high">
+        <th mat-header-cell *matHeaderCellDef> High </th>
+        <td mat-cell *matCellDef="let element"> {{element.high}} </td>
+      </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="low">
+        <th mat-header-cell *matHeaderCellDef> Low </th>
+        <td mat-cell *matCellDef="let element"> {{element.low}} </td>
+      </ng-container>
 
-  <!-- Row shown when there is no matching data. -->
-  <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-  </tr>
-</table>
-<highcharts-chart
-    [Highcharts]="Highcharts"
-    [constructorType]="'stockChart'"
-    [options]="chartOptions"
-    [oneToOne]=true
-    style="width: 100%; height:100%; display:block;"
-></highcharts-chart>
+      <ng-container matColumnDef="volume">
+        <th mat-header-cell *matHeaderCellDef> Volume </th>
+        <td mat-cell *matCellDef="let element"> {{element.volume}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="stockchart_check">
+    <highcharts-chart
+        [Highcharts]="Highcharts"
+        [constructorType]="'stockChart'"
+        [options]="chartOptions"
+        [oneToOne]=true
+        style="width: 100%; height:100%; display:block;"
+    ></highcharts-chart>
+  </div>
+
+  <div *ngIf="currency_check">
+    <mat-grid-list cols="4" rowHeight="100px">
+      <mat-grid-tile class="chart-box"     
+          [colspan]="tiles[0].cols"
+          [rowspan]="tiles[0].rows"
+          [style.background]="tiles[0].color">
+          
+          <highcharts-chart class="chart-align"
+                  [Highcharts]="Highcharts"
+                  [constructorType]="'stockChart'"
+                  [options]="currency_chartOptions"
+                  [oneToOne]=true
+                  style="width: 100%; height:100%; text-align: center; margin-left:auto; margin-right:auto; "
+          ></highcharts-chart>
+          
+           
+      </mat-grid-tile>
+
+      <mat-grid-tile      
+          [colspan]="tiles[1].cols"
+          [rowspan]="tiles[1].rows"
+          [style.background]="tiles[1].color">
+          <table mat-table [dataSource]="currencySource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef> Symbol </th>
+              <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="currencyColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: currencyColumns;"></tr>
+      
+           
+          </table>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </div>
+
+  <div *ngIf="news_check">
+    <h1 style="text-align:center;">Market News</h1>
+    <br>
+    <div style="padding: 150px;">
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New1: <a href={{displayedNewsUrl[0]}}>{{displayedNews[0]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New2: <a href={{displayedNewsUrl[1]}}>{{displayedNews[1]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New3: <a href={{displayedNewsUrl[2]}}>{{displayedNews[2]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New4: <a href={{displayedNewsUrl[3]}}>{{displayedNews[3]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New5: <a href={{displayedNewsUrl[4]}}>{{displayedNews[4]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New6: <a href={{displayedNewsUrl[5]}}>{{displayedNews[5]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New7: <a href={{displayedNewsUrl[6]}}>{{displayedNews[6]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New8: <a href={{displayedNewsUrl[7]}}>{{displayedNews[7]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New9: <a href={{displayedNewsUrl[8]}}>{{displayedNews[8]}}</a></h3>
+        <br>
+        <h3>&nbsp;&nbsp;&nbsp;&nbsp;New10: <a href={{displayedNewsUrl[9]}}>{{displayedNews[9]}}</a></h3>
+        <br>
+
+    </div>
+  </div>
+
+
+
+
 
 </div>
 </div>

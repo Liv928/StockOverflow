@@ -33,6 +33,7 @@ import { MatDialogModule} from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
@@ -66,7 +67,8 @@ import {MatListModule} from '@angular/material/list';
         MatExpansionModule,
         MatListModule,
         BrowserAnimationsModule,
-        FormsModule      
+        FormsModule,
+        MatCheckboxModule 
 
     ],
     declarations: [			

@@ -3,18 +3,21 @@
     <div class="navbar-nav">
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+        <!--
         <a class="nav-item nav-link" routerLink="/news" routerLinkActive="active">Market News</a>
         <a class="nav-item nav-link" routerLink="/currency" routerLinkActive="active">Currency</a>
+        -->
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
     </div> 
 </nav>
+<!---
 <div>
     <mat-sidenav-container>
         <mat-toolbar color="primary" class="mat-elevation-z2">
            
           </mat-toolbar>
         <mat-sidenav #sideNav  mode="side" opened="true" class="mat-elevation-z1">
-          <!-- sidenav content -->
+          
           <mat-nav-list>
             <mat-accordion>
               <a mat-list-item>
@@ -29,6 +32,7 @@
         </mat-sidenav>
     </mat-sidenav-container>
 </div>
+-->
 <!-- main app container -->
 <div class="app-container" [ngClass]="{ 'bg-light': user }">
     <alert></alert>
