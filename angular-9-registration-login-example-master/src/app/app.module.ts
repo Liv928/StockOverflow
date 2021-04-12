@@ -40,7 +40,10 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { NewsComponent } from './news/news.component';
 import { CurrencyComponent } from './currency/currency.component';
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
     imports: [
@@ -55,7 +58,15 @@ import { CurrencyComponent } from './currency/currency.component';
         MatTableModule,
         MatTabsModule,
         MatFormFieldModule,
-        MatInputModule,        
+        MatInputModule,  
+        MatTabsModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatListModule,
+        BrowserAnimationsModule,
+        FormsModule      
 
     ],
     declarations: [			
