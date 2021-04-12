@@ -3,12 +3,10 @@
 import { AccountService } from './_services';
 import { User } from './_models';
 import { StockApiService} from './stock-api.service';
-@Component({ selector: 'app', templateUrl: 'app.component.html' ,styleUrls: ['app.component.scss']})
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
     user: User;
 
-    public checkModel: any = { left: true, middle: false, right: false };
-    public radioModel: string = 'Left';
     constructor(private accountService: AccountService, private apiService: StockApiService) {
         this.accountService.user.subscribe(x => this.user = x);
     }

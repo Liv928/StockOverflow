@@ -84,15 +84,8 @@ export class HomeComponent {
         let i = 0;
         for (const item in res){
           this.graphData[i] = [];
-          //this.graphData[i].push(res[item].price);
-
-          var tempDate = new Date(res[item].date);
-          //var tms = Date.UTC(tempDate.getUTCFullYear(),tempDate.getMonth(),tempDate.getDate(),tempDate.getHours(),tempDate.getMinutes());
-          
           this.graphData[i].push(res[item].date);
-          
-          this.graphData[i].push(res[item].close);
-          
+          this.graphData[i].push(res[item].price);
           i++;
         }
       });
@@ -128,9 +121,9 @@ export class HomeComponent {
         this.getonemonthDate();
         this.getoneMonthPrice();
         this.getSymbol();
-        //console.log(this.oneMonthDate); 
-        //console.log(this.oneMonthPrice); 
-        console.log(this.graphData); 
+        console.log(this.oneMonthDate); 
+        console.log(this.oneMonthPrice); 
+        console.log(this.symbol); 
         this.chartOptions = {
           chart:{
           },
@@ -142,7 +135,7 @@ export class HomeComponent {
             tooltip: {
               valueDecimals: 2,
             },
-            data:[this.graphData]
+            data:this.oneMonthData
           }],
           yAxis: {
             title: {text:'Celsius'}
