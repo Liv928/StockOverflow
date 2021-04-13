@@ -50,9 +50,21 @@ export interface PeriodicElement {
   }
   const ELEMENT_DATA: PeriodicElement[] =[
     {symbol: 'AAPL',name: 'Apple',high: 117.49,low:116.22,volume:'46691331'},
-    {symbol: 'A',name: 'Agilent Technologies Inc.',high: 117.49,low:116.22,volume:'46691331'},
-    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: 117.49,low:116.22,volume:'46691331'}
+    {symbol: 'A',name: 'Agilent Technologies Inc.',high: 124.28,low:120.34,volume:'1229988'},
+    {symbol: 'AACG',name: 'ATA Creativity Global - ADR',high: 4.79,low:4.4306,volume:'193081'},
+    {symbol: 'BCOR',name: 'Blucora Inc',high: 18.21,low:17.24,volume:'300356'},
+    {symbol: 'BEAM',name: 'Beam Therapeutics Inc',high: 100,low:93.38,volume:'4756770'},
+    {symbol: 'BNY',name: 'BlackRock New York Municipal Income Trust',high: 15.65,low:15.44,volume:'25285'},
+    {symbol: 'CBU',name: 'Community Bank System, Inc.',high: 82.4,low:78.82,volume:'212625'},
+    {symbol: 'CCBG',name: 'Capital City Bank Group, Inc.',high: 28.68,low:27.39,volume:'21464'},
+    {symbol: 'CFBK',name: 'CF Bankshares Inc',high: 20.235,low:19.73,volume:'2918'},
+    {symbol: 'CGA',name: 'China Green Agriculture Inc',high: 5.77,low:4.95,volume:'43039'},
+    {symbol: 'DXR',name: 'Daxor Corp.',high: 12.6999,low:12.32,volume:'679'},
+    {symbol: 'EARN',name: 'Ellington Residential Mortgage REIT',high: 12.74,low:12.5,volume:'158082'},
+    {symbol: 'ELVT',name: 'Elevate Credit Inc',high: 4.605,low:4.43,volume:'225379'}
   ];
+
+    
   const CURRENCY_DATA: CurrencyElement[] = [
     {position: 1, name: 'Australian dollar', price: 1.079, symbol: 'AUD'},
     {position: 2, name: 'Singapore dollar', price: 4.026, symbol: 'SGD'},

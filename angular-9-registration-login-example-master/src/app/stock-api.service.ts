@@ -6,9 +6,9 @@ import { StockData } from './models/stock-data';
 })
 export class StockApiService {
   private baseUrl = 'https://cloud.iexapis.com/stable/stock/';  // URL to web api
-  private onemonthUrl = 'https://cloud.iexapis.com/stable/stock/twtr/chart/1m?token=pk_9b3e50aa00274c0a8143cbf1cd6f0048';
-  private newsUrl = 'https://cloud.iexapis.com/stable/stock/aapl/news?token=pk_9b3e50aa00274c0a8143cbf1cd6f0048';
-  private symbolUrl = 'https://cloud.iexapis.com/beta/ref-data/symbols?token=pk_fe5c85583f254341bb4298aa4761ae82';
+  private onemonthUrl = 'https://cloud.iexapis.com/stable/stock/twtr/chart/1m?token=pk_fa5601b615df4b88a57eb3044352da89';
+  private newsUrl = 'https://cloud.iexapis.com/stable/stock/aapl/news?token=pk_fa5601b615df4b88a57eb3044352da89 ';
+  private symbolUrl = 'https://cloud.iexapis.com/beta/ref-data/symbols?token=pk_fa5601b615df4b88a57eb3044352da89 ';
   private curUrl = '';
 
   oneMonthDate: string[] = [];
