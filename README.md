@@ -1,4 +1,14 @@
 # StockOverflow
+# Before running our project, ensure you have installed Node.js and npm
+
+  1. First unzip the the code and enter the root directory 
+  2. Run command npm install -g @angular/cli
+  3. Run command npm install
+  4. Then Run command ng serve, after it is successully compiled, 
+  open your web browser at localhost http://localhost:4200/
+
+  Now, you should be able to view our demo
+
 # PracticeAngular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.7.
